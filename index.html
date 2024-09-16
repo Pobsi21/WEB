@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: flex;
+            width: 800px;
+            height: 400px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .image-slider {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            transition: transform 0.5s;
+        }
+
+        .image-slider img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .image-slider img.active {
+            opacity: 1;
+        }
+
+        .form-section {
+            width: 50%;
+            position: absolute;
+            right: 0;
+            
+            transition: transform 0.5s;
+        }
+
+        .form-box {
+            width: 100%;
+        }
+
+        .form {
+            display: none;
+            padding: 40px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form.active {
+            display: flex;
+        }
+
+        .form h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form button:hover {
+            background-color: #0056b3;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <title>Sliding Sign In/Up Form with Image Slider</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="image-slider" id="image-slider">
+        <img src="https://via.placeholder.com/400x400?text=Image+1" class="active" alt="Image 1">
+        <img src="https://via.placeholder.com/400x400?text=Image+2" alt="Image 2">
+        <img src="https://via.placeholder.com/400x400?text=Image+3" alt="Image 3">
+    </div>
+
+    <div class="form-section">
+        <div class="form-box" id="form-box">
+            <div class="form active" id="sign-in-form">
+                <h2>Sign In</h2>
+                <input type="text" placeholder="Username">
+                <input type="password" placeholder="Password">
+                
+				<div class="buttons">
+    <button>Sign In</button>
+    <button onclick="showSignUp()">Sign Up</button>
+</div>
+            </div>
+            <div class="form" id="sign-up-form">
+                <h2>Sign Up</h2>
+                <input type="text" placeholder="Username">
+                <input type="password" placeholder="Password">
+                
+				<div class="buttons">
+    <button onclick="showSignIn()">Sign In</button>
+   <button>Sign Up</button>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.image-slider img');
+
+    function showNextImage() {
+        images[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.add('active');
+    }
+
+    setInterval(showNextImage, 3000); // Change image every 3 seconds
+
+    function showSignIn() {
+        document.getElementById('form-box').style.transform = 'translateX(0)';
+        document.getElementById('image-slider').style.transform = 'translateX(0)';
+        document.getElementById('sign-in-form').classList.add('active');
+        document.getElementById('sign-up-form').classList.remove('active');
+    }
+
+    function showSignUp() {
+        document.getElementById('form-box').style.transform = 'translateX(-100%)';
+        document.getElementById('image-slider').style.transform = 'translateX(100%)';
+        document.getElementById('sign-up-form').classList.add('active');
+        document.getElementById('sign-in-form').classList.remove('active');
+    }
+</script>
+
+</body>
+</html>
